@@ -49,7 +49,7 @@ function inject (slides) {
     <main style="padding: 50px;">
     <h3>slides:</h3>
     <ul>${
-      slides.map(v => `<li><p><a href="/slides/${v}">${v}</a></p></li>`).join('')
+      slides.map(v => `<li><p><a href="/slides/${v}.html">${v}</a></p></li>`).join('')
     }</ul>
     </main>
   `)
