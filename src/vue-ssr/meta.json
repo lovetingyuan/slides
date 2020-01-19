@@ -1,5 +1,5 @@
 {
-  "title": "bbbb",
-  "description": "this is bbbbbb",
-  "themeColor": "red"
+  "title": "vue-ssr",
+  "description": "vue server render",
+  "themeColor": "#4fc08d"
 }
