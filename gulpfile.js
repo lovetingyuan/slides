@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const Bundler = require('parcel-bundler')
 
-const dist = path.join(__dirname, 'slides')
+const dist = path.join(__dirname, 'dist')
 const src = path.join(__dirname, 'src')
 const defaultThemeColor = 'darkseagreen'
 

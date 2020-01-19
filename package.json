@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "cross-env NODE_ENV=development npx parcel src/index.html --cache-dir node_modules/.cache/parcel",
     "build": "cross-env NODE_ENV=production npx gulp",
-    "prebuild": "npx rimraf slides"
+    "prebuild": "npx rimraf dist"
   },
   "author": {
     "name": "baitu.huang"
