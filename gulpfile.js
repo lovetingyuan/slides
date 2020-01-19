@@ -41,7 +41,7 @@ function inject (slides) {
       .replace(/<title><\/title>/, `<title>${title}</title>`)
       .replace(/<meta name="description" content="">/, `<meta name="description" content=${JSON.stringify(description)}>`)
       .replace(/<meta name="theme-color" content="">/, `<meta name="theme-color" content="${themeColor}">`)
-      .replace(/--theme-color:""/, `--theme-color: '${themeColor}';`)
+      .replace(/--theme-color:""/, `--theme-color: ${themeColor};`)
     fs.writeFileSync(path.join(dist, name + '.html'), result)
     rimraf.sync(path.join(dist, name))
   })
