@@ -1,0 +1,25 @@
+section 部署
+  section
+    ul
+      li 项目部署配置修改
+      li forever，pm2等工具
+      li nginx配置修改
+  section
+    p deploy.json
+    pre
+      code.
+        "run": {
+          "command": "NODE_ENV=production forever -o /workspace/log/info.log -e /workspace/log/error.log server.js",
+          "smoke": {
+            "protocol": "HTTP",
+            "timeout": 5,
+            "retry": 10,
+            "endpoint": "/"
+          },
+          "check": {
+            "protocol": "HTTP",
+            "timeout": 5,
+            "retry": 10,
+            "endpoint": "/"
+          }
+        },
