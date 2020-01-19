@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 const Bundler = require('parcel-bundler')
+const rimraf = require('rimraf')
 
 const dist = path.join(__dirname, 'dist')
 const src = path.join(__dirname, 'src')
@@ -41,7 +42,8 @@ function inject (slides) {
       .replace(/<meta name="description" content="">/, `<meta name="description" content=${JSON.stringify(description)}>`)
       .replace(/<meta name="theme-color" content="">/, `<meta name="theme-color" content="${themeColor}">`)
       .replace(/--theme-color:""/, `--theme-color: '${themeColor}';`)
-    fs.writeFileSync(path.join(dist, name, 'index.html'), result)
+    fs.writeFileSync(path.join(dist, name + '.html'), result)
+    rimraf.sync(path.join(dist, name))
   })
   fs.writeFileSync(path.join(dist, 'index.html'), `
     <main style="padding: 50px;">
