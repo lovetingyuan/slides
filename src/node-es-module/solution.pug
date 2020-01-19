@@ -1,0 +1,75 @@
+section
+  h3 Node团队提出新方案的三个原则
+  ol(style="zoom: .8")
+    li 完全遵循ES规范 👍
+    li 尽最大可能保持与浏览器的实现一致 👍
+    li 保证现有的commonjs模块完全向后兼容且无需改动 👍
+
+section
+  h3 同时支持commonjs 和 ES module 存在什么问题？
+  ul
+    li node如何判断文件的模块类型？
+    li cjs和esm如何和谐共存？
+    li 模块是同步加载还是异步加载？
+
+section
+  h3 node如何辨别模块格式
+  section
+    ul
+      li 通过不同的文件后缀，es的模块使用 .mjs 作为后缀，commonjs使用.cjs或者默认.js
+      li 对于第三方模块会根据package.json中的type是module还是commonjs来决定（后缀优先）
+      li 内部实现上两种模块会使用不同的加载器
+      li 还有一些被废弃的idea，比如在代码顶部使用"use module"来表示esm，或者根据有无import，export关键字来判断等
+
+section
+  h3 node模块解析和加载的过程
+  section
+    p commonjs的加载
+    ol(style="zoom: .8")
+      li require被调用时进行路径分析
+      li 查找模块的目标文件，对于文本代码直接读取文件内容
+      li 解析模块，json的格式会直接json.parse，js会被包装成函数
+        pre
+          code(class="language-javascript")
+            | (function (exports, require, module,  __filename, __dirname) {
+            |   // code
+            | });
+      li 源代码交给vm模块执行，并将结果缓存到Module._cache中，下次优先使用缓存
+      li 当遇到import()时调用esm加载器
+  section
+    p es module的加载
+    ol(style="zoom: .8")
+      li 代码交给v8运行，遇到import会交给esm加载器来进行处理（分静态和动态import）
+      li 查找模块的目标文件，对于文本代码直接读取文件内容
+      li 对于commonjs模块会用cjs的加载器来执行，缓存到CJSModule._cache
+      li 递归上述加载过程处理
+
+section
+  h3 和谐相处需约法三章
+  section
+    ul(style="zoom: .9")
+      li 在commonjs中只能通过import()使用es模块
+      li 在es模块中不可以直接使用require，module，__filename等
+      li 在es模块中import cjs模块时默认情况下只能引用默认导出
+        div ❌ import { a } from './a'
+        div ✅ import a from './a'
+      li import不可省略文件后缀
+  section
+    img(src="https://miro.medium.com/max/2956/1*ax3AGfyJhlDWiBDMXYBv7Q.png", alt="interoperability", style="max-width: 80%")
+
+section
+  h3 package如何支持两种模块
+  ul(style="zoom: .8")
+    li 对于打包工具来讲，package.json中的 "module" 字段可以指定esm格式的入口文件
+    li 对于node来讲，可以使用 "exports" 字段来指定别名来实现
+      pre
+        code(class="language-javascript")
+          | {
+          |   "type": "module",
+          |   "exports": {
+          |     ".": {
+          |       "require": "./main.cjs",
+          |       "default": "./main.js"
+          |    }
+          |   }
+          | }

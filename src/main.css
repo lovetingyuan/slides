@@ -1,0 +1,54 @@
+@import "reveal.js/css/reset.css";
+@import "reveal.js/css/reveal.css";
+@import "reveal.js/css/theme/solarized.css";
+
+@import "prismjs/themes/prism-solarizedlight.css";
+
+.reveal h3 {
+  text-transform: capitalize;
+  color: var(--theme-color);
+}
+
+.reveal ul li,
+.reveal ol li {
+  margin-top: 30px;
+}
+
+.reveal a {
+  margin: 0 14px;
+}
+
+p {
+  line-height: 1.8;
+}
+
+::selection {
+  background-color: var(--theme-color);
+}
+
+.reveal .controls {
+  color: var(--theme-color);
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  font-size: 20px;
+}
+
+.reveal .slide-number {
+  top: 10px;
+  bottom: auto;
+  border-radius: 4px;
+}
+
+.reveal .progress {
+  color: var(--theme-color);
+  height: 4px;
+}
+
+.g-left-title {
+  color: var(--theme-color);
+  text-align: left;
+  text-transform: capitalize;
+  margin-top: 20px;
+}

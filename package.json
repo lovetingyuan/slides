@@ -1,0 +1,33 @@
+{
+  "name": "slides",
+  "version": "1.0.0",
+  "description": "slides notes about sth.",
+  "private": true,
+  "scripts": {
+    "serve": "cross-env NODE_ENV=development npx parcel src/index.html --cache-dir node_modules/.cache/parcel",
+    "build": "cross-env NODE_ENV=production npx gulp",
+    "prebuild": "npx rimraf slides"
+  },
+  "author": {
+    "name": "baitu.huang"
+  },
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "cssnano": "^4.1.10",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
+    "jstransformer-markdown-it": "^2.1.0",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-inliner": "^1.0.10",
+    "parcel-plugin-local": "^1.1.0",
+    "pug": "^2.0.4"
+  },
+  "dependencies": {
+    "prismjs": "^1.17.1",
+    "reveal.js": "^3.8.0"
+  }
+}
