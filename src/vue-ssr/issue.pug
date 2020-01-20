@@ -4,16 +4,16 @@ section 面对的问题
       li 有的代码只能在浏览器运行怎么办
       li 用户数据的隔离(session)
       li 异步数据获取(async data)
-section 有的代码只能在浏览器运行怎么办
-  ul
-    li 平台相关的代码惰性访问
+  section 有的代码只能在浏览器运行怎么办
     ul
-      li vue在服务器环境只会执行 beforeCreate 和 created 这两个钩子
-    li 通过环境变量条件执行
+      li 平台相关的代码惰性访问
+      ul
+        li vue在服务器环境只会执行 beforeCreate 和 created 这两个钩子
+      li 通过环境变量条件执行
+      ul
+        li 通过 webpack.DefinePlugin 来设置环境变量
+  section 用户的请求环境怎么隔离开
     ul
-      li 通过 webpack.DefinePlugin 来设置环境变量
-section 用户的请求环境怎么隔离开
-  ul
-    li 单例模式 => 工厂模式
-    ul
-      li 将根实例，vuex store， vue router 等都改为工厂方法
+      li 单例模式 => 工厂模式
+      ul
+        li 将根实例，vuex store， vue router 等都改为工厂方法

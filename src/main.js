@@ -27,4 +27,13 @@ litdom(['pre', 'code'], d => {
   }
 })
 
+litdom('section', d => {
+  if (d.childNodes[0] && d.childNodes[0].nodeType === 3) {
+    const span = document.createElement('span')
+    span.textContent = d.childNodes[0].textContent
+    span.className = 'g-theme-color'
+    d.childNodes[0].replaceWith(span)
+  }
+})
+
 Prism.highlightAll()

@@ -4,14 +4,15 @@ section 缓存
       li 路由缓存
       li 组件缓存
   section 路由缓存（页面缓存）
-    p 通常我们使用micro-caching的策略（短时缓存）
+    p 通常我们使用 micro-caching 的策略（短时缓存）
     ul
-      li 一般我们只缓存静态页面，根据url和cookie等作为key缓存即可
+      li 一般我们只缓存静态页面，根据 url 和 cookie 等作为key缓存即可
       li 动态页面也可以缓存，但是要注意缓存key要包含所有动态要素
 
   section 组件缓存
     p 如果应用没有明显的性能问题不要使用组件缓存
     ul
       li 在创建render时传入缓存策略，一般选择LRU方法
-      li 需要缓存的组件需要指定`name`属性和#[code serverCacheKey]方法
+      li 需要缓存的组件需要指定 name 属性和 serverCacheKey 方法
       li 如果组件会对渲染上下文产生副作用或者依赖全局状态则不可缓存
+

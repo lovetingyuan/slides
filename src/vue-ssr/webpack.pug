@@ -46,24 +46,22 @@ section webpack打包
       li 上面打包出来只会生成一个名为`vue-ssr-server-bundle.json`的文件
       li 这个文件包含了服务端所有的代码
   section
-    h3 浏览器端打包也需要小小的改动
-      pre
-        code.
-          configureWebpack: {
-            optimization: {
-              runtimeChunk: {
-                // 将webpack运行时分包，以便可以在之后正确注入异步 chunk
-                name: 'manifest'
-              }
-            },
+    p 浏览器端打包也需要小小的改动
+    pre
+      code.
+        configureWebpack: {
+          optimization: {
+            runtimeChunk: {
+              // 将webpack运行时分包，以便渲染器注入正确的资源标签
+              name: 'manifest'
+            }
           },
-          plugins: [
-            // require('vue-server-renderer/client-plugin')，引入客户端的插件
-            new VueSSRClientPlugin(),
-          ]
+        },
+        plugins: [
+          // require('vue-server-renderer/client-plugin')，引入客户端的插件
+          new VueSSRClientPlugin(),
+        ]
   section
     ul
       li 上面的插件会额外生成`vue-ssr-client-manifest.json`
       li 这个文件包含了所有模块和文件的依赖关系，打包结果等
-
-  

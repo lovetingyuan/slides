@@ -52,3 +52,7 @@ pre[class*="language-"] {
   text-transform: capitalize;
   margin-top: 20px;
 }
+
+.g-theme-color {
+  color: var(--theme-color);
+}
