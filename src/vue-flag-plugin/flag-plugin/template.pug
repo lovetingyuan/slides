@@ -1,0 +1,28 @@
+section
+  p 关于模版
+  p 通过指令来实现
+    pre
+      code(class="language-html")
+        - var a = '<div v-if-flag="A">aaa</div>';
+        - var b = '<div v-elif-flag="B">bbb</div>';
+        - var c = '<div v-else>ccc</div>';
+        - var comment = '<!-- after -->'
+        - var d = '<div>ccc</div>'
+        | #{a}
+        | #{b}
+        | #{c}
+        | #{comment}
+        | #{d}
+section
+  p 模板的处理过程
+  ol(style="zoom: .8")
+    li(class="fragment fade-right")
+      | 如何介入对模板的处理过程
+      p vue的
+        a(href="https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#compilercompiletemplate-options" target="_blank") 模板编译器
+        | 提供了钩子(transformNode)可以介入模板AST的处理（通过compilerOptions.modules传入vue-loader）
+      p 不能用directive选项，因为此时AST已经处理完毕，无法删除节点
+    li(class="fragment fade-right")
+      p 在preTransformNode中收集v-*-flag的值，在postTransformNode中移除或保留对应的AST节点
+        a(href="https://git.garena.com/shopee-sz-fe/vue-feature-flag/blob/master/lib/transform-node.js" target="_blank") code
+

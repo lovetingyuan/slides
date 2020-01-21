@@ -1,0 +1,9 @@
+section 关于脚本代码
+  p 生产模式使用 webpack.DefinePlugin
+  p DefinePlugin会替换代码中flag变量为boolean
+  p 然后压缩工具会识别这些dead code并移除它们
+section 关于脚本代码
+  p watch模式下使用
+    a(href="https://webpack.docschina.org/plugins/provide-plugin/" target="_blank") webpack.ProvidePlugin
+  p 它可以提供全局变量（namespace）访问flag
+  p 通过动态生成代码我们甚至可以介入到运行时来检查flag变量

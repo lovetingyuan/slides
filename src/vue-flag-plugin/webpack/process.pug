@@ -1,0 +1,10 @@
+section
+  h3 Webpack构建过程
+  ol(style="zoom: 0.7;")
+    li(class="fragment fade-down") 处理配置（合并、校验、转换），生成 compiler 对象，设置插件，监听文件变化
+    li(class="fragment fade-down") 生成 compilation 对象，分析入口，开始构建
+    li(class="fragment fade-down") 从入口文件出发调用loader处理模块
+    li(class="fragment fade-down") 通过AST分析依赖，递归上面的步骤直到处理完所有的模块
+    li(class="fragment fade-down") 根据依赖关系和配置项对模块进行组装、拆分、优化，生成chunk
+    li(class="fragment fade-down") 对chunk通过代码模板生成最终的源代码
+    li(class="fragment fade-down") 输出所有生成的资源文件，一次编译完成

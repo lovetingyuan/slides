@@ -2,7 +2,7 @@ import Reveal from 'reveal.js'
 import Prism from 'prismjs'
 
 if (process.env.NODE_ENV === 'development') {
-  document.querySelector('.slides').innerHTML = require('./vue-ssr/index.pug')
+  document.querySelector('.slides').innerHTML = require('./vue-flag-plugin/index.pug')
 }
 
 Reveal.initialize({

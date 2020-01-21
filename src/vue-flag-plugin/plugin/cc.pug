@@ -1,0 +1,12 @@
+section(data-transition="convex")
+  h3 compiler & compilation
+  ul(style="zoom: .7")
+    li compiler和compilation是webpack最重要的两个对象，它们都是tapable的实例。它们注册了webpack大部分的事件，整个编译构建过程都是围绕它们展开的
+    li compiler: webpack主引擎，它负责解析配置，挂载插件以及开启compilation
+      a(href="https://webpack.docschina.org/api/compiler#%E4%BA%8B%E4%BB%B6%E9%92%A9%E5%AD%90" target="_blank") &nbsp; compiler的hooks
+    li compilation: 编译对象，表示一个完整的编译构建过程
+      | 负责模块加载，封闭，优化，代码分块，哈希，重建等
+      | 当修改代码时，webpack会重启compilation的生命周期
+      | 包含着所有的module,chunk,assets等数据
+      a(href="https://webpack.docschina.org/api/compilation/#normal-module-loader" target="_blank") &nbsp; compilation的hooks
+    

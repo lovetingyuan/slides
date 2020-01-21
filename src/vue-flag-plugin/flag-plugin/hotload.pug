@@ -1,0 +1,7 @@
+section
+  p 如何实现开发时flag的热更新
+  ol(style="zoom: .8")
+    li(class="fragment fade-right") 监听flag文件变化，获取到新的flag值
+    li(class="fragment fade-right") 将新的值序列化生成一个模块并写入一个缓存文件
+    li(class="fragment fade-right") 将 namespace 和缓存文件的地址传入 webpack.ProvidePlugin
+    li(class="fragment fade-right") 对于 css 和 template，将上述缓存添加到依赖树中，并且将在每次计算flag时重新读取值
