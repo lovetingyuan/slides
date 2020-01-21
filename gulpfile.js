@@ -1,4 +1,7 @@
-exports.default = function () {
+const { series } = require('gulp')
+const { exec } = require('child_process')
+
+exports.copy = function copy () {
   const { src, dest } = require('gulp')
   const fs = require('fs')
   const path = require('path')
@@ -9,3 +12,20 @@ exports.default = function () {
   })
   return src('dist/**/*').pipe(dest(__dirname))
 }
+
+exports.deploy = function deploy (done) {
+  const d = new Date
+  const date = d.toLocaleString()
+  exec(`git status && git add . && git commit -m "${date}" && git push`, {
+    cwd: __dirname
+  }, (err, stdout) => {
+    if (err) return done(err)
+    process.stdout.write(stdout + '\n')
+    setTimeout(() => {
+      process.stdout.write('Done, see https://github.com/lovetingyuan/slides/deployments\n')
+      done()
+    }, 2000)
+  })
+}
+
+exports.default = series(exports.copy, exports.deploy)
