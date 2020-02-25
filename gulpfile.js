@@ -16,7 +16,7 @@ exports.copy = function copy () {
 exports.deploy = function deploy (done) {
   const d = new Date
   const date = d.toLocaleString()
-  exec(`git status && git add . && git commit -m "${date}" && git push`, {
+  exec(`git status && git add . && git commit -m "${date}" && git push && git checkout dev`, {
     cwd: __dirname
   }, (err, stdout) => {
     if (err) return done(err)
