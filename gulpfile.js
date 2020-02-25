@@ -48,8 +48,8 @@ function inject (slides) {
   fs.writeFileSync(path.join(dist, 'index.html'), `
     <main style="padding: 50px;">
     <h3>slides:</h3>
-    <ul>${
-      slides.map(v => `<li><p><a href="/slides/${v}.html">${v}</a></p></li>`).join('')
+    <ul id="list">${
+      slides.map(v => `<li><p><a href="${v}.html">${v}</a></p></li>`).join('')
     }</ul>
     </main>
   `)
