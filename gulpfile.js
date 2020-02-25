@@ -34,21 +34,25 @@ function inject (slides) {
   slides.forEach(name => {
     const meta = require(path.join(src, name, 'meta.json'))
     const {
-      title, description, themeColor = defaultThemeColor
+      title = name,
+      description = 'Slides about ' + name + '.',
+      themeColor = defaultThemeColor,
+      favicon = 'https://tingyuan.me/favicon.ico'
     } = meta
     const slide = fs.readFileSync(path.join(dist, name, 'index.html'), 'utf8')
     const result = index.replace(appContentReg, slide)
-      .replace(/<title><\/title>/, `<title>${title}</title>`)
-      .replace(/<meta name="description" content="">/, `<meta name="description" content=${JSON.stringify(description)}>`)
-      .replace(/<meta name="theme-color" content="">/, `<meta name="theme-color" content="${themeColor}">`)
-      .replace(/--theme-color:""/, `--theme-color: ${themeColor};`)
+      .replace(/TITLE/, title)
+      .replace(/DESCRIPTION/, description)
+      .replace(/#FFFFFF/, themeColor)
+      .replace('<style></style>', '<style>:root {--theme-color: '+themeColor+'} </style>')
+      .replace(/https:\/\/tingyuan.me\/favicon\.ico/, favicon)
     fs.writeFileSync(path.join(dist, name + '.html'), result)
     rimraf.sync(path.join(dist, name))
   })
   fs.writeFileSync(path.join(dist, 'index.html'), `
     <main style="padding: 50px;">
-    <h3>slides:</h3>
-    <ul id="list">${
+    <h2>slides:</h2>
+    <ul>${
       slides.map(v => `<li><p><a href="${v}.html">${v}</a></p></li>`).join('')
     }</ul>
     </main>

@@ -3,6 +3,12 @@ import Prism from 'prismjs'
 
 if (process.env.NODE_ENV === 'development') {
   document.querySelector('.slides').innerHTML = require('./vue-ssr/index.pug')
+  const { title, description, favicon, themeColor } = require('./vue-ssr/meta.json')
+  document.title = title
+  document.querySelector('meta[name="description"]').content = description
+  document.querySelector('meta[name="theme-color"]').content = themeColor
+  document.querySelector('link[rel="shortcut icon"]').href = favicon
+  document.querySelector('style').textContent = `:root { --theme-color: ${themeColor} }`
 }
 
 Reveal.initialize({

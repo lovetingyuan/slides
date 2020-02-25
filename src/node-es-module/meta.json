@@ -1,4 +1,5 @@
 {
   "title": "node module",
-  "description": "node es module"
+  "description": "node es module",
+  "favicon": "https://nodejs.org/static/images/favicons/favicon-32x32.png"
 }

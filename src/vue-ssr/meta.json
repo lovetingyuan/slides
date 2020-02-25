@@ -1,5 +1,6 @@
 {
   "title": "vue-ssr",
   "description": "vue server render",
-  "themeColor": "#4fc08d"
+  "themeColor": "#4fc08d",
+  "favicon": "https://vuejs.org/images/icons/favicon-32x32.png"
 }

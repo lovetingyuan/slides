@@ -1,5 +1,6 @@
 {
   "title": "vue flags webpack plugin",
   "description": "slides about vue-flags-webpack-plugin",
-  "themeColor": "#4fc08d"
+  "themeColor": "#4fc08d",
+  "favicon": "https://vuejs.org/images/icons/favicon-32x32.png"
 }
