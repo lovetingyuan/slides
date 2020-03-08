@@ -15,7 +15,8 @@ Reveal.initialize({
   slideNumber: 'c/t',
   fragmentInURL: true,
   history: true,
-  transition: 'concave'
+  transition: 'concave',
+  pdfSeparateFragments: false
 })
 
 function litdom (selector, callback) {
@@ -43,3 +44,12 @@ litdom('section', d => {
 })
 
 Prism.highlightAll()
+
+if (window.location.search.match( /print-pdf/gi )) {
+  const pdfcss = 'https://cdn.jsdelivr.net/npm/reveal.js@3.9.2/css/print/pdf.css'
+  const link = document.createElement( 'link' )
+  link.rel = 'stylesheet'
+  link.type = 'text/css'
+  link.href = pdfcss
+  document.head.appendChild( link )
+}

@@ -1,9 +1,3 @@
-@import "reveal.js/css/reset.css";
-@import "reveal.js/css/reveal.css";
-@import "reveal.js/css/theme/solarized.css";
-
-@import "prismjs/themes/prism-solarizedlight.css";
-
 .reveal h3 {
   text-transform: capitalize;
   color: var(--theme-color);

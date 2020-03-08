@@ -8,6 +8,8 @@ const dist = path.join(__dirname, 'dist')
 const src = path.join(__dirname, 'src')
 const defaultThemeColor = 'darkseagreen'
 
+const { inlineSource } = require('inline-source')
+
 async function buildSlides (names) {
   // Bundler options
   const options = {
@@ -28,9 +30,16 @@ async function buildSlides (names) {
   await bundler.stop()
 }
 
-function inject (slides) {
+async function inject (slides) {
   const appContentReg = /<!--\[if APP-START\]><!\[endif\]-->[\s\S]+?<!--\[if APP-END\]><!\[endif\]-->/m
-  const index = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+  const indexhtml = await inlineSource(path.join(dist, 'index.html'), {
+    compress: true,
+    rootpath: dist,
+    attribute: false,
+    compress: false,
+    // Skip all css types and png formats
+    // ignore: ['css', 'png']
+  })
   slides.forEach(name => {
     const meta = require(path.join(src, name, 'meta.json'))
     const {
@@ -40,7 +49,7 @@ function inject (slides) {
       favicon = 'https://tingyuan.me/favicon.ico'
     } = meta
     const slide = fs.readFileSync(path.join(dist, name, 'index.html'), 'utf8')
-    const result = index.replace(appContentReg, slide)
+    const result = indexhtml.replace(appContentReg, slide)
       .replace(/TITLE/, title)
       .replace(/DESCRIPTION/, description)
       .replace(/#FFFFFF/, themeColor)
@@ -67,7 +76,7 @@ async function main () {
     } catch (err) {}
   })
   await buildSlides(slides)
-  inject(slides)
+  await inject(slides)
 }
 
 exports.default = main
