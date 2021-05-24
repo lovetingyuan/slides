@@ -60,10 +60,13 @@ if (import.meta.hot) {
   })
 }
 
-const redirect = decodeURIComponent(new URLSearchParams(location.search).get('redirect') || '')
+let redirect = decodeURIComponent(new URLSearchParams(location.search).get('redirect') || '')
 if (redirect) {
+  if (redirect.endsWith('/')) {
+    redirect = redirect.slice(0, -1)
+  }
   if (mdMap[redirect]) {
-    history.pushState({}, 'slides', redirect)
+    history.replaceState({}, 'slides', redirect)
     mdMap[redirect]().then(res => {
       start(res.default)
     })
