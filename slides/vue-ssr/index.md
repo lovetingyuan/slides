@@ -28,7 +28,7 @@
 
 <------------
   ### Vue SSR的流程
-  ![Vue SSR的流程图](/vue-ssr/ssr.png)
+  ![Vue SSR的流程图](/slides/vue-ssr/ssr.png)
 
 <include src="./webpack.md">
 

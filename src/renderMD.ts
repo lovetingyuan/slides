@@ -24,17 +24,14 @@ export function toAttrs(t: string, obj?: boolean) {
   return obj ? attrObj : attrsList.join(' ')
 }
 
-export default function renderMD(markdown: string, container: string | HTMLElement) {
-  let _container: HTMLElement
-  if (typeof container === 'string') {
-    _container = document.querySelector(container) as HTMLElement
-  } else {
-    _container = container
-  }
-  if (!_container) {
-    throw new Error('invalid container for renderMD')
-  }
-  _container.innerHTML = markdown
+export default function renderMD(markdown: string) {
+  const container = document.createElement('div')
+  container.className = 'slides'
+  const reveal = document.querySelector('.reveal')
+  if (!reveal) return
+  reveal.innerHTML = ''
+  reveal.appendChild(container)
+  container.innerHTML = markdown
   const processText = (children: Node['childNodes']) => {
     children && children.length && Array.from(children).forEach(child => {
       if (!child) return
@@ -55,18 +52,18 @@ export default function renderMD(markdown: string, container: string | HTMLEleme
       processText(child.childNodes)
     })
   }
-  processText(_container.childNodes)
-  _container.querySelectorAll('a').forEach(a => {
+  processText(container.childNodes)
+  container.querySelectorAll('a').forEach(a => {
     if (!a.target) a.target = '_blank'
   })
-  _container.querySelectorAll('code').forEach(a => {
+  container.querySelectorAll('code').forEach(a => {
     a.dataset.trim = ''
     a.dataset.noescape = ''
     if (!a.dataset.lineNumbers) {
       a.dataset.lineNumbers = ''
     }
   })
-  _container.querySelectorAll('script').forEach(script => {
+  container.querySelectorAll('script').forEach(script => {
     const s = document.createElement('script')
     s.textContent = script.textContent
     if (script.src) {

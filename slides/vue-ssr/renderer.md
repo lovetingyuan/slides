@@ -1,5 +1,5 @@
 <---------------------
-  渲染器
+  #### 渲染器
   <<----------
   ```javascript
   const { createBundleRenderer } = require('vue-server-renderer')
@@ -22,7 +22,7 @@
   }
   ```
   <<----------------
-  ![webpack](/vue-ssr/vue-ssr.png)
+  ![webpack](/slides/vue-ssr/vue-ssr.png)
   <<----------------
   渲染上下文和模板
   * 渲染上下文是node环境和app沟通的桥梁

@@ -3,9 +3,10 @@
 @import url('reveal.js/dist/theme/solarized.css');
 @import url('prismjs/themes/prism-solarizedlight.css');
 
-.reveal h3 {
+.reveal h3, .reveal h4 {
   text-transform: capitalize;
   color: var(--theme-color);
+  font-weight: bold;
 }
 .reveal .progress {
   top: 0;

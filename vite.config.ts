@@ -9,7 +9,7 @@ import { toAttrs } from './src/renderMD'
 const mdPlugin: () => Plugin = () => {
   function toSection(content: string, top?: boolean) {
     let first = true;
-    const reg = new RegExp(`\\s<${!top ? '<' : ''}-{3,}(.*?)\\n`, 'g');
+    const reg = new RegExp(`\\s<${!top ? '<' : ''}-{3,}(.*?)(\\r\\n|\\n)`, 'g');
     if (!reg.test(content)) return content
     return content.replace(reg, (s, t) => {
       if (first) {
@@ -21,7 +21,7 @@ const mdPlugin: () => Plugin = () => {
   }
   function importMd(content: string, base: string) {
     const deps: string[] = []
-    const code = content.replace(/<include +src="(.+?\.md)">\n/g, (s, t) => {
+    const code = content.replace(/<include +src="(.+?\.md)">(\r\n|\n)/g, (s, t) => {
       const file = resolve(base, t.trim())
       deps.push(t.trim())
       return '\n' + readFileSync(file, 'utf-8') + '\n'
@@ -59,5 +59,8 @@ const mdPlugin: () => Plugin = () => {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/slides/',
+  build: {
+    outDir: 'docs'
+  },
   plugins: [mdPlugin()]
 })
