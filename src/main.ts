@@ -63,7 +63,10 @@ if (import.meta.hot) {
 const redirect = decodeURIComponent(new URLSearchParams(location.search).get('redirect') || '')
 if (redirect) {
   if (mdMap[redirect]) {
-    location.pathname = redirect
+    history.pushState({}, 'slides', redirect)
+    mdMap[redirect]().then(res => {
+      start(res.default)
+    })
   } else {
     location.pathname = baseurl
   }
