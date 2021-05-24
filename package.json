@@ -4,9 +4,6 @@
   "description": "slides notes about sth.",
   "private": true,
   "scripts": {
-    "_serve": "cross-env NODE_ENV=development npx parcel src/index.html --cache-dir node_modules/.cache/parcel",
-    "_build": "cross-env NODE_ENV=production npx gulp",
-    "_prebuild": "npx rimraf dist",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
@@ -14,24 +11,16 @@
   "author": {
     "name": "baitu.huang"
   },
-  "engines": {
-    "node": ">=8.10.0"
-  },
   "license": "MIT",
   "devDependencies": {
-    "cross-env": "^7.0.0",
-    "gulp": "^4.0.2",
-    "gulp-cli": "^2.2.0",
-    "inline-source": "^7.2.0",
-    "jstransformer-markdown-it": "^2.1.0",
-    "marked": "^2.0.3",
-    "parcel-bundler": "^1.12.4",
-    "pug": "^3.0.2",
-    "rimraf": "^3.0.0",
-    "vite": "^2.1.5"
+    "@types/marked": "^2.0.2",
+    "@types/node": "^15.6.0",
+    "@types/prismjs": "^1.16.5",
+    "marked": "^2.0.5",
+    "vite": "^2.3.3"
   },
   "dependencies": {
     "prismjs": "^1.23.0",
-    "reveal.js": "^4.1.0"
+    "reveal.js": "^4.1.1"
   }
 }

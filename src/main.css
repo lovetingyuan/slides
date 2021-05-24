@@ -7,7 +7,10 @@
   text-transform: capitalize;
   color: var(--theme-color);
 }
-
+.reveal .progress {
+  top: 0;
+  bottom: auto;
+}
 .reveal ul li,
 .reveal ol li {
   margin-top: 30px;
@@ -21,7 +24,7 @@ p {
   line-height: 1.8;
 }
 
-::selection {
+.reveal ::selection {
   background-color: var(--theme-color);
 }
 
@@ -31,7 +34,7 @@ p {
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-size: 20px;
+  font-size: .8em;
 }
 
 .reveal .slide-number {

@@ -1,8 +1,0 @@
-section
-  p 插件的执行过程
-  ol(style="zoom: .8")
-    li 检查并处理选项，如果开启 watch，则监听flag文件的变化
-    li 将模板处理方法注入到 vue-loader 的选项中
-    li 如果需要忽略文件，则将ignore file loader注入到webpack中
-    li 应用 DefinePlugin 或者 ProvidePlugin
-    li 对样式的处理需要手动应用postcss插件

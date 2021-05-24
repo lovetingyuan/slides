@@ -4,27 +4,51 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>TITLE</title>
-	<meta name="description" content="DESCRIPTION">
-	<meta name="theme-color" content="#FFFFFF">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="theme-color" content="#747bff">
 	<link href="https://cdn.jsdelivr.net" rel="preconnect" crossorigin>
 	<link href="https://fonts.googleapis.com" rel="preconnect" crossorigin>
 	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-	<!-- <link rel="preload" href="main.css" as="style" onload="this.onload=null;this.rel='stylesheet'"> -->
+	<style>
+		:root {
+			--theme-color: #747bff;
+		}
+	</style>
 	<link rel="stylesheet" href="/src/main.css">
-
 </head>
 
 <body>
 	<div class="reveal">
 		<div class="slides">
-			<!--[if APP-START]><![endif]-->
 			<h3 style="position: fixed;top: 30px;left:100px;font-size: 2em;">Loading...</h3>
-			<!--[if APP-END]><![endif]-->
 		</div>
 	</div>
-	<div id="test"></div>
-	<script type="module" src="/src/main.js"></script>
+	<script nomodule> alert('请使用现代浏览器访问')	</script>
+	<script type="module">
+		import start from '/src/main.ts'
+		const mds = import.meta.glob('./slides/*/index.md')
+		const mdMap = {}
+		const baseurl = import.meta.env.BASE_URL
+		Object.keys(mds).forEach(path => {
+			const name = path.split('/')[2]
+			mdMap[baseurl + name] = mds[path]
+		})
+		const fetchMd = mdMap[location.pathname]
+		if (fetchMd) {
+			fetchMd().then(res => {
+				start(res.default)
+			})
+		} else {
+			document.querySelector('.reveal').innerHTML = `
+				<ul style="margin: 40px 100px">
+					${Object.keys(mdMap).map(path => {
+						return `<li><a href="${path}">${path}</a></li>`
+					}).join('')}
+				</ul>
+			`
+		}
+	</script>
 </body>
 
 </html>
