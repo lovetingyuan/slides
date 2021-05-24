@@ -68,6 +68,6 @@ if (redirect) {
       start(res.default)
     })
   } else {
-    location.pathname = baseurl
+    location.href = baseurl
   }
 }
