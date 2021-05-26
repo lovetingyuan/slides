@@ -73,6 +73,7 @@ export default function renderMD(markdown: string) {
     if (script.src) {
       s.src = script.src
     }
+    script.remove()
     document.head.appendChild(s)
   })
 }

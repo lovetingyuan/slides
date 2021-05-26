@@ -74,3 +74,19 @@ if (redirect) {
     location.href = baseurl
   }
 }
+
+Object.defineProperty(window, 'meta', {
+  set(meta) {
+    if (!meta) return
+    if (meta.title) {
+      document.title = meta.title;
+    }
+    if (meta.themeColor) {
+      const tm = document.head.querySelector('meta[name="theme-color"]');
+      if (tm) {
+        tm.setAttribute('content', meta.themeColor);
+      }
+      document.documentElement.style.setProperty('--theme-color', meta.themeColor);
+    }
+  }
+})

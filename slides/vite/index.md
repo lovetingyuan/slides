@@ -1,5 +1,8 @@
 <script>
-document.title = 'Vite⚡️介绍'
+meta = {
+  title: 'Vite⚡介绍',
+  themeColor: '#747bff'
+}
 </script>
 
 <include src="./fast.md">

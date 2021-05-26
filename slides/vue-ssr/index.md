@@ -1,3 +1,9 @@
+<script>
+meta = {
+  title: 'Vue2 SSR',
+  themeColor: '#42b983'
+}
+</script>
 <----------------
   ### VUE SSR
   <<-------------
