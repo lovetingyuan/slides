@@ -25,13 +25,17 @@ export function toAttrs(t: string, obj?: boolean) {
 }
 
 export default function renderMD(markdown: string) {
-  const container = document.createElement('div')
-  container.className = 'slides'
-  const reveal = document.querySelector('.reveal')
-  if (!reveal) return
-  reveal.innerHTML = ''
-  reveal.appendChild(container)
-  container.innerHTML = markdown
+  let slides = document.querySelector('.slides')
+  const reveal = document.querySelector('.reveal') as HTMLDivElement
+
+  if (!slides) {
+    slides = document.createElement('div')
+    slides.className = 'slides'
+    reveal.innerHTML = ''
+    reveal.appendChild(slides)
+  }
+
+  slides.innerHTML = markdown
   const processText = (children: Node['childNodes']) => {
     children && children.length && Array.from(children).forEach(child => {
       if (!child) return
@@ -52,18 +56,18 @@ export default function renderMD(markdown: string) {
       processText(child.childNodes)
     })
   }
-  processText(container.childNodes)
-  container.querySelectorAll('a').forEach(a => {
+  processText(slides.childNodes)
+  slides.querySelectorAll('a').forEach(a => {
     if (!a.target) a.target = '_blank'
   })
-  container.querySelectorAll('code').forEach(a => {
+  slides.querySelectorAll('code').forEach(a => {
     a.dataset.trim = ''
     a.dataset.noescape = ''
     if (!a.dataset.lineNumbers) {
       a.dataset.lineNumbers = ''
     }
   })
-  container.querySelectorAll('script').forEach(script => {
+  slides.querySelectorAll('script').forEach(script => {
     const s = document.createElement('script')
     s.textContent = script.textContent
     if (script.src) {

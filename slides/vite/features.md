@@ -33,17 +33,17 @@
     }
     ```
   
-  * css自动分包，压缩，url重写，内联data协议
   <<-----------
+  * css自动分包，压缩，url重写，内联data协议
   * 公用模块提取
   * 模块import alias支持
   * 更贴近语言标准的环境变量注入和替换，如 <code>import.meta.env.NODE_ENV</code>
   * SSR全流程支持（experimental）
-  * 支持multi-page模式和library模式构建
-  * 同时支持modern模式和legacy模式构建以及pre-标签注入
-  <<--------
-  * vite dev server可以独立作为middleware使用
   * 开箱即用的本地代理
+  * 支持multi-page模式和library模式构建
+  <<--------
+  * 同时支持modern模式和legacy模式构建以及pre-标签注入
+  * vite dev server可以独立作为middleware使用
   * 支持构建阶段生成reporter和manifest
   * 丰富的项目模板，vue,react,svelte,preact,lit-element
   * 完整的TypeScript支持
