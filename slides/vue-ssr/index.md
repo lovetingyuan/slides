@@ -1,9 +1,7 @@
-<script>
-meta = {
-  title: 'Vue2 SSR',
-  themeColor: '#42b983'
-}
-</script>
+<title>Vue2 SSR</title>
+<meta name="theme" content="sky">
+<meta name="code-theme" content="tomorrow">
+
 <----------------
   ### VUE SSR
   <<-------------
@@ -36,8 +34,8 @@ meta = {
   ### Vue SSR的流程
   ![Vue SSR的流程图](/slides/vue-ssr/ssr.png)
 
-<include src="./webpack.md">
 
+<include src="./webpack.md">
 <include src="./renderer.md">
 <include src="./issue.md">
 <include src="./async.md">

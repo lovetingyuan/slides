@@ -1,7 +1,7 @@
 import Reveal from 'reveal.js'
 import Prism from 'prismjs'
 
-import renderMD from './renderMD'
+import { renderMd } from './renderMD'
 
 const mds = import.meta.glob('../slides/*/index.md')
 const mdMap: Record<string, () => Promise<{[k: string]: string}>> = {}
@@ -17,21 +17,11 @@ if (fetchMd) {
     start(res.default)
   })
 } else {
-  (document.querySelector('.reveal') as HTMLDivElement).innerHTML = `
-    <h3 style="margin: 40px;">slides: </h3>
-    <ul style="margin: 40px 100px">
-      ${Object.keys(mdMap).map(path => {
-        return `<li><a href="${path}">${path}</a></li>`
-      }).join('')}
-    </ul>
-  `
+  renderMd(mdMap)
 }
 
-let md: string = ''
-
-function start(_md: string) {
-  renderMD(_md)
-  md = _md
+function start(md: string) {
+  renderMd(md)
 
   Reveal.initialize({
     slideNumber: 'c/t',
@@ -50,9 +40,8 @@ function start(_md: string) {
 
 if (import.meta.hot) {
   (window as any).__markdown__ || Object.defineProperty(window, '__markdown__', {
-    get() { return md },
     set(md: string) {
-      renderMD(md)
+      renderMd(md)
       Prism.highlightAll()
       Reveal.toggleOverview();
       Reveal.toggleOverview(); // just refresh all slides
@@ -74,19 +63,3 @@ if (redirect) {
     location.href = baseurl
   }
 }
-
-Object.defineProperty(window, 'meta', {
-  set(meta) {
-    if (!meta) return
-    if (meta.title) {
-      document.title = meta.title;
-    }
-    if (meta.themeColor) {
-      const tm = document.head.querySelector('meta[name="theme-color"]');
-      if (tm) {
-        tm.setAttribute('content', meta.themeColor);
-      }
-      document.documentElement.style.setProperty('--theme-color', meta.themeColor);
-    }
-  }
-})

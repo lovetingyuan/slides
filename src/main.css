@@ -1,7 +1,5 @@
 @import url('reveal.js/dist/reset.css');
 @import url('reveal.js/dist/reveal.css');
-@import url('reveal.js/dist/theme/solarized.css');
-@import url('prismjs/themes/prism-solarizedlight.css');
 
 .reveal h3, .reveal h4 {
   text-transform: capitalize;
@@ -21,7 +19,7 @@
   margin: 0 14px;
 }
 
-p {
+.reveal p {
   line-height: 1.8;
 }
 
@@ -33,8 +31,8 @@ p {
   color: var(--theme-color);
 }
 
-code[class*="language-"],
-pre[class*="language-"] {
+.reveal code[class*="language-"],
+.reveal pre[class*="language-"] {
   font-size: .8em;
 }
 
@@ -58,4 +56,20 @@ pre[class*="language-"] {
 
 .g-theme-color {
   color: var(--theme-color);
+}
+
+#export-btn {
+  width: 20px;
+  height: 20px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
+#export-btn::before {
+  content: '💾';
+  display: inline-block;
+}
+@media print {
+  #export-btn { display: none; }
 }

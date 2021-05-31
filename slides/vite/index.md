@@ -1,9 +1,6 @@
-<script>
-meta = {
-  title: 'Vite⚡介绍',
-  themeColor: '#747bff'
-}
-</script>
+<title>Vite⚡️介绍</title>
+<meta name="theme" content="sky">
+<meta name="code-theme" content="tomorrow">
 
 <include src="./fast.md">
 <include src="./bundle.md">
