@@ -5,9 +5,10 @@ import { readFileSync } from 'fs'
 
 import { toAttrs } from './src/renderMD'
 
-function toSection(content: string, top?: boolean) {
+function toSection(content: string, second = false) {
   let first = true;
-  const reg = new RegExp(`\\s<${!top ? '<' : ''}-{5,}(.*?)(\\r\\n|\\n)`, 'g');
+  content = '\n' + content
+  const reg = new RegExp(`\\s<${second ? '<' : ''}-{5,}(.*?)(\\r\\n|\\n)`, 'g');
   if (!reg.test(content)) return content
   const code = content.replace(reg, (s, t) => {
     if (first) {
@@ -16,9 +17,9 @@ function toSection(content: string, top?: boolean) {
     }
     return `\n\n</section>\n\n<section ${toAttrs(t)}>\n\n`
   }) + '\n\n</section>\n\n'
-  if (top) {
+  if (!second) {
     return code.replace(/<section[^>]*>([\s\S]*?)<\/section>/g, (s, t) => {
-      return s.replace(t, toSection(t))
+      return s.replace(t, toSection(t, true))
     })
   }
   return code
@@ -27,12 +28,9 @@ function toSection(content: string, top?: boolean) {
 function processTags(content: string) {
   const scripts: string[] = [];
   const includes: string[] = [];
-  const code = content.replace(/<include +src="(.+?\.md)">(\r\n|\n)/g, (s, t) => {
-    const varName = 'include$' + Buffer.from(s).toString('base64').replace(/(\+|=|\/)/g, '')
-    scripts.push(`import ${varName} from ${JSON.stringify(t.trim())}`)
-    includes.push(varName)
-    return `\n\n${varName}\n\n` // will compiled to <p>
-  }).replace(/<script>([\s\S]+)?<\/script>/g, (s, t) => {
+  const includeReg = /(<include +src=".+?\.md">)(?:\r\n|\n)/g
+  const includeValReg = /<include +src="(.+?\.md)">/
+  let code = content.replace(/<script>([\s\S]+)?<\/script>/g, (s, t) => {
     scripts.push(t)
     return ''
   }).replace(/<title>(.+)?<\/title>/, (s, t) => {
@@ -54,7 +52,22 @@ function processTags(content: string) {
     }
     return '';
   })
-  return { code, includes, scripts }
+  const markdown = code.split(includeReg).map(b => {
+    if (!b.trim()) return '\n'
+    if (includeValReg.test(b)) {
+      const val = b.match(includeValReg)
+      if (val) {
+        const varName = 'include_' + Buffer.from(val[1]).toString('base64').replace(/(\+|=|\/)/g, '')
+        scripts.push(`import ${varName} from ${JSON.stringify(val[1].trim())}`)
+        includes.push(varName)
+        return `\n<${varName}>\n`
+      }
+      return '\n'
+    } else {
+      return toSection(b)
+    }
+  }).join('\n')
+  return { markdown, includes, scripts }
 }
 
 const MdPlugin: () => Plugin = () => {
@@ -68,25 +81,25 @@ const MdPlugin: () => Plugin = () => {
       if (!id.endsWith('.md')) return
       const source = readFileSync(id, 'utf-8')
       if (!id.endsWith('/index.md')) {
-        const markdown = toSection('\n' + source, true)
+        const markdown = toSection(source)
         return `export default ${JSON.stringify(marked(markdown))}`
       }
-      const { code: _code, scripts, includes } = processTags(source)
-      const markdown = toSection('\n' + _code, true)
-      const code = `
-        ${scripts.join(';\n')};
-        export default ${JSON.stringify(marked(markdown))}${includes.map(dep => {
-          return `.replace(${JSON.stringify(`<p>${dep}</p>`)}, ${dep})`
-        }).join('')};
-      `
+      const { markdown, scripts, includes } = processTags(source)
+      scripts.push(
+        `export default ${JSON.stringify(marked(markdown))}` +
+        includes.map(dep => {
+          return `.replace(${JSON.stringify(`<${dep}>`)}, ${dep})`
+        }).join('')
+      )
+      const code = scripts.join(';\n')
       if (config.command === 'build') return code
-      return code + `
+      return code + '\n' + `
         if (import.meta.hot) {
           import.meta.hot.accept((m) => {
             window.__markdown__ = m.default
           })
         }
-      `
+      `.replace(/\s/g, '')
     }
   }
 }

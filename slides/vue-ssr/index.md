@@ -1,5 +1,5 @@
 <title>Vue2 SSR</title>
-<meta name="theme" content="sky">
+<meta name="theme" content="beige">
 <meta name="code-theme" content="tomorrow">
 
 <----------------
@@ -37,6 +37,7 @@
 
 <include src="./webpack.md">
 <include src="./renderer.md">
+
 <include src="./issue.md">
 <include src="./async.md">
 <include src="./cache.md">
