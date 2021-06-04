@@ -1,4 +1,4 @@
-const gattrs = ['title', 'style', 'class', 'id']
+const gAttrs = ['title', 'style', 'class', 'id']
 
 export function toAttrs(t: string, obj?: boolean) {
   if (!t) return obj ? {} : ''
@@ -7,7 +7,7 @@ export function toAttrs(t: string, obj?: boolean) {
   t.split('&').forEach(v => {
     if (!v.trim()) return ''
     const [k, _v] = v.trim().split('=').map(a => a.trim())
-    if (gattrs.includes(k) || k.startsWith('data-')) {
+    if (gAttrs.includes(k) || k.startsWith('data-')) {
       if (obj) {
         attrObj[k] = _v
       } else {
@@ -23,17 +23,13 @@ export function toAttrs(t: string, obj?: boolean) {
   })
   return obj ? attrObj : attrsList.join(' ')
 }
+
 type IG = ReturnType<ImportMeta['glob']>
 
 export function renderMd(m: string): void
 export function renderMd(m: IG): void
-export function renderMd(): void
-export function renderMd(markdown?: string | IG): void {
+export function renderMd(markdown: string | IG): void {
   const reveal = document.querySelector('.reveal') as HTMLDivElement
-  if (!markdown) {
-    reveal.innerHTML = '<h3 style="margin: 100px; font-size: 3em;">Loading...</h3>'
-    return;
-  }
   if (typeof markdown === 'object') {
     const names = Object.keys(markdown).map(k => k.split('/')[2])
     reveal.innerHTML = `
@@ -56,7 +52,7 @@ export function renderMd(markdown?: string | IG): void {
   }
 
   slides.innerHTML = markdown
-  const processText = (children: Node['childNodes']) => {
+  const processComment = (children: Node['childNodes']) => {
     children && children.length && Array.from(children).forEach(child => {
       if (!child) return
       if (child.nodeType === 8) {
@@ -73,10 +69,10 @@ export function renderMd(markdown?: string | IG): void {
           })
         }
       }
-      processText(child.childNodes)
+      processComment(child.childNodes)
     })
   }
-  processText(slides.childNodes)
+  processComment(slides.childNodes)
   slides.querySelectorAll('a').forEach(a => {
     if (!a.target) a.target = '_blank'
   })
