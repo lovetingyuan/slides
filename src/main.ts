@@ -13,6 +13,7 @@ Object.keys(mds).forEach(path => {
 const fetchMd = mdMap[location.pathname]
 
 if (fetchMd) {
+  renderMd()
   fetchMd().then(res => {
     start(res.default)
   })
