@@ -27,8 +27,13 @@ type IG = ReturnType<ImportMeta['glob']>
 
 export function renderMd(m: string): void
 export function renderMd(m: IG): void
-export function renderMd(markdown: string | IG): void {
+export function renderMd(): void
+export function renderMd(markdown?: string | IG): void {
   const reveal = document.querySelector('.reveal') as HTMLDivElement
+  if (!markdown) {
+    reveal.innerHTML = '<h3 style="margin: 100px; font-size: 3em;">Loading...</h3>'
+    return;
+  }
   if (typeof markdown === 'object') {
     const names = Object.keys(markdown).map(k => k.split('/')[2])
     reveal.innerHTML = `
