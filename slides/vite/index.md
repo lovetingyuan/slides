@@ -1,6 +1,7 @@
 <title>Vite⚡️介绍</title>
 <meta name="theme" content="sky">
 <meta name="code-theme" content="tomorrow">
+<link rel="icon" href="https://vitejs.dev/logo.svg">
 
 <include src="./fast.md">
 <include src="./bundle.md">

@@ -1,6 +1,7 @@
 <title>Vue2 SSR</title>
 <meta name="theme" content="beige">
 <meta name="code-theme" content="tomorrow">
+<link rel="icon" href="./logo.svg">
 
 <----------------
   ### VUE SSR

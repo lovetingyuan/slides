@@ -38,7 +38,15 @@ function processTags(content: string) {
       scripts.push(`document.title = ${JSON.stringify(t)}`)
     }
     return '';
-  }).replace(/<meta name="([^"]+)" content="([^"]+)" *>/g, (s, name, value) => {
+  }).replace(/<link rel="icon" href="([^"]+)">/, (s, href) => {
+    if (href.startsWith('http')) {
+      scripts.push(`const iconHref = ${JSON.stringify(href)}`)
+    } else {
+      scripts.push(`import iconHref from ${JSON.stringify(href)}`)
+    }
+    scripts.push("const icon = document.createElement('link'); icon.rel = 'icon'; icon.href = iconHref; document.head.appendChild(icon);")
+    return ''
+  }).replace(/<meta name="([^"]+)" content="([^"]+)">/g, (s, name, value) => {
     if (name === 'theme') {
       if (!['beige', 'black', 'blood', 'league', 'moon', 'night', 'serif', 'simple', 'sky', 'solarized', 'white'].includes(value)) {
         value = 'simple'
