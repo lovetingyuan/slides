@@ -3,22 +3,30 @@ import Prism from 'prismjs'
 
 import { renderMd } from './renderMD'
 
+const baseOptions = {
+  slideNumber: 'c/t',
+  fragmentInURL: true,
+  history: true,
+  previewLinks: true,
+  transition: 'concave',
+  margin: .2,
+  backgroundTransition: 'slide',
+  pdfSeparateFragments: false,
+}
+
 function start(md: string, hot = false) {
   renderMd(md)
   Prism.highlightAll()
+  const config = {
+    ...baseOptions,
+    ...(window as any).revealOptions
+  }
   if (hot) {
+    Reveal.configure(config)
     Reveal.toggleOverview();
     Reveal.toggleOverview(); // just refresh all slides
   } else {
-    Reveal.initialize({
-      slideNumber: 'c/t',
-      fragmentInURL: true,
-      history: true,
-      transition: 'concave',
-      margin: .2,
-      backgroundTransition: 'slide',
-      pdfSeparateFragments: false
-    })
+    Reveal.initialize(config)
   }
 }
 

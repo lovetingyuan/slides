@@ -44,7 +44,12 @@ function processTags(content: string) {
     } else {
       scripts.push(`import iconHref from ${JSON.stringify(href)}`)
     }
-    scripts.push("const icon = document.createElement('link'); icon.rel = 'icon'; icon.href = iconHref; document.head.appendChild(icon);")
+    scripts.push(`
+      const icon = document.querySelector('link[rel="icon"]') || document.createElement('link');
+      icon.rel = 'icon';
+      icon.href = iconHref;
+      document.head.appendChild(icon);
+    `)
     return ''
   }).replace(/<meta name="([^"]+)" content="([^"]+)">/g, (s, name, value) => {
     if (name === 'theme') {
@@ -88,7 +93,7 @@ const MdPlugin: () => Plugin = () => {
     async load(id) {
       if (!id.endsWith('.md')) return
       const source = readFileSync(id, 'utf-8')
-      if (!id.endsWith('/index.md')) {
+      if (!/\/|\\index\.md$/.test(id)) {
         const markdown = toSection(source)
         return `export default ${JSON.stringify(marked(markdown))}`
       }
@@ -101,13 +106,13 @@ const MdPlugin: () => Plugin = () => {
       )
       const code = scripts.join(';\n')
       if (config.command === 'build') return code
-      return code + '\n' + `
+      return code + `
         if (import.meta.hot) {
           import.meta.hot.accept((m) => {
             window.__markdown__ = m.default
           })
         }
-      `.replace(/\s/g, '')
+      `
     }
   }
 }

@@ -3,6 +3,12 @@
 <meta name="code-theme" content="tomorrow">
 <link rel="icon" href="https://vitejs.dev/logo.svg">
 
+<script>
+window.revealOptions = {
+  backgroundTransition: 'convex'
+}
+</script>
+
 <include src="./fast.md">
 <include src="./bundle.md">
 <include src="./features.md">

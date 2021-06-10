@@ -57,7 +57,7 @@
     <h1>Loading...</h1>
     <script>
     // hack to 404 page for SPA website
-    location.href = '/slides/?redirect=' + encodeURIComponent(location.pathname)
+    location.href = '/slides/?redirect=' + encodeURIComponent(location.pathname) + location.search.replace('?', '&')
     </script>
 </body>
 </html>

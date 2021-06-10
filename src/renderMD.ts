@@ -52,6 +52,7 @@ export function renderMd(markdown: string | IG): void {
   }
 
   slides.innerHTML = markdown
+
   const processComment = (children: Node['childNodes']) => {
     children && children.length && Array.from(children).forEach(child => {
       if (!child) return
@@ -73,9 +74,9 @@ export function renderMd(markdown: string | IG): void {
     })
   }
   processComment(slides.childNodes)
-  slides.querySelectorAll('a').forEach(a => {
-    if (!a.target) a.target = '_blank'
-  })
+  // slides.querySelectorAll('a').forEach(a => {
+  //   if (!a.target) a.target = '_blank'
+  // })
 
   let exportBtn = document.getElementById('export-btn')
   const url = new URL(location.href)
