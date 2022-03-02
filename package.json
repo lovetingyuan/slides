@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "prismjs": "^1.23.0",
-    "reveal.js": "^4.1.3"
+    "reveal.js": "^4.3.0"
   }
 }
